@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "seed": "tsx scripts/seed.mts",
-    "abi": "node scripts/abi.mjs"
+    "abi": "node scripts/abi.mjs",
+    "agent-demo": "tsx scripts/agent-demo.mts"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.105.0",
