@@ -14,10 +14,19 @@ export type HireOutcome =
   | { status: "error"; reason: string };
 
 /** Lets local dev hit its own agents instead of the deployed URLs written on-chain. */
+/** the hosts our own agents were listed under on-chain */
+const OWN_HOSTS = new Set(["402hq.xyz", "www.402hq.xyz", "localhost"]);
+
+/**
+ * Where to call an agent. AGENTS_BASE_URL reroutes our own agents (local dev, or while the domain written on-chain is
+ * still coming up); anything a third party listed is always called at its own URL.
+ */
 export function resolveEndpoint(endpoint: string) {
   const base = process.env.AGENTS_BASE_URL;
   if (!base) return endpoint;
-  return new URL(new URL(endpoint).pathname, base).toString();
+  const url = new URL(endpoint);
+  if (!OWN_HOSTS.has(url.hostname)) return endpoint;
+  return new URL(url.pathname, base).toString();
 }
 
 export async function refundJob(jobId: Hex) {
