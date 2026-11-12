@@ -1,0 +1,14 @@
+node_modules/
+.env
+.env*.local
+.next/
+.vercel/
+contracts/out/
+contracts/cache/
+contracts/broadcast/*/31337/
+!.env.example
+
+# working notes, kept local
+CLAUDE.md
+HANDOFF.md
+HACKATHON.md

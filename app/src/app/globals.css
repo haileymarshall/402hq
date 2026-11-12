@@ -1,0 +1,272 @@
+@import "tailwindcss";
+
+/*
+ * Light, quiet and exact: paper background, near-black ink, hairline rules, a framed centre column.
+ * `ink` is the page background and `fg` the text, so `text-ink` on a black button reads as paper.
+ */
+@theme {
+  --color-ink: #fcfcfc;
+  --color-panel: #ffffff;
+  --color-panel-2: #f5f5f5;
+  --color-line: #e5e5e5;
+  --color-line-2: #cfcfcf;
+  --color-fg: #1a1a1a;
+  --color-muted: #555555;
+  --color-dim: #8a8a8a;
+  --color-accent: #1a1a1a;
+  --color-accent-deep: #000000;
+  --color-highlight: #1d4f9c;
+  --color-ok: #1f7a4f;
+  --color-warn: #9a6b14;
+  --color-danger: #b3261e;
+  --color-sky: #5b3cc4;
+
+  --font-sans: var(--font-body), "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-heading), "Space Grotesk", var(--font-body), sans-serif;
+  --font-mono: var(--font-code), "IBM Plex Mono", ui-monospace, monospace;
+
+  --animate-rise: rise 0.4s cubic-bezier(0.2, 0, 0, 1) both;
+  --animate-pulse-ring: pulse-ring 1.8s ease-out infinite;
+  --animate-dash: dash 0.9s linear infinite;
+  --animate-scan: scan 2.4s ease-in-out infinite;
+  --animate-marquee: marquee 60s linear infinite;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--ring, var(--color-accent)) 35%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 12px transparent;
+  }
+}
+@keyframes dash {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes scan {
+  0%,
+  100% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(100%);
+  }
+}
+
+/* Dark mode: the same tokens, inverted. Follows the system unless the visitor picks one with the toggle. */
+:root[data-theme="dark"] {
+  --color-ink: #0b0b0c;
+  --color-panel: #121214;
+  --color-panel-2: #1a1a1d;
+  --color-line: #27272b;
+  --color-line-2: #3b3b41;
+  --color-fg: #ededed;
+  --color-muted: #a3a3a3;
+  --color-dim: #767676;
+  --color-accent: #ededed;
+  --color-accent-deep: #ffffff;
+  --color-highlight: #7aa7ee;
+  --color-ok: #4ade80;
+  --color-warn: #e0b24a;
+  --color-danger: #f87171;
+  --color-sky: #a78bfa;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-ink: #0b0b0c;
+    --color-panel: #121214;
+    --color-panel-2: #1a1a1d;
+    --color-line: #27272b;
+    --color-line-2: #3b3b41;
+    --color-fg: #ededed;
+    --color-muted: #a3a3a3;
+    --color-dim: #767676;
+    --color-accent: #ededed;
+    --color-accent-deep: #ffffff;
+    --color-highlight: #7aa7ee;
+    --color-ok: #4ade80;
+    --color-warn: #e0b24a;
+    --color-danger: #f87171;
+    --color-sky: #a78bfa;
+    color-scheme: dark;
+  }
+}
+
+html {
+  color-scheme: light;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.panel {
+  position: relative;
+  background: var(--color-panel);
+  border: 1px solid var(--color-line);
+  border-radius: 6px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--color-line);
+  background: var(--color-panel);
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+.eyebrow {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-muted);
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1.04;
+}
+.display em {
+  font-style: normal;
+  color: var(--color-dim);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 14px;
+  white-space: nowrap;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    color 0.15s,
+    opacity 0.15s;
+}
+.btn:disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+.btn-primary {
+  background: var(--color-accent);
+  color: var(--color-ink);
+}
+.btn-primary:hover {
+  background: color-mix(in oklab, var(--color-accent) 82%, var(--color-ink));
+}
+.btn-ghost {
+  border: 1px solid var(--color-line-2);
+  color: var(--color-fg);
+  background: var(--color-panel);
+}
+.btn-ghost:hover {
+  background: var(--color-panel-2);
+}
+
+.field {
+  width: 100%;
+  background: var(--color-panel);
+  border: 1px solid var(--color-line-2);
+  border-radius: 4px;
+  padding: 10px 12px;
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  color: var(--color-fg);
+  outline: none;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+.field::placeholder {
+  color: var(--color-dim);
+}
+.field:focus {
+  border-color: var(--color-fg);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-fg) 8%, transparent);
+}
+
+.num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* small mono label, as in table headers */
+.cap {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-dim);
+}
+
+.link {
+  color: var(--color-fg);
+  text-decoration: underline;
+  text-decoration-color: var(--color-line-2);
+  text-underline-offset: 3px;
+}
+.link:hover {
+  text-decoration-color: var(--color-fg);
+}
+
+/* a faint dot grid that fades out toward the edges */
+.dots {
+  background-image: radial-gradient(color-mix(in oklab, var(--color-fg) 22%, transparent) 1px, transparent 1.2px);
+  background-size: 22px 22px;
+  mask-image: radial-gradient(70% 70% at 65% 40%, black 20%, transparent 75%);
+}
+
+/* a small "+" where two rules cross */
+.cross {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--color-line-2), var(--color-line-2)) center / 1px 100% no-repeat,
+    linear-gradient(var(--color-line-2), var(--color-line-2)) center / 100% 1px no-repeat;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--color-fg) 14%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
