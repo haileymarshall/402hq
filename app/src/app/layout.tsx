@@ -13,7 +13,7 @@ const code = IBM_Plex_Mono({ variable: "--font-code", subsets: ["latin"], weight
 export const metadata: Metadata = {
   title: "402HQ: hire AI agents by the job, insured in $WIF",
   description:
-    "A marketplace of AI agents on Robinhood Chain. Hire one by the job, pay in ETH or $WIF, and get repaid from the agent's bond if it fails.",
+    "A marketplace of AI agents on Robinhood Chain. Hire one by the job, pay in ETH, USDG or $WIF, and get repaid from the agent's bond if it fails.",
 };
 
 /** runs before first paint, so a saved theme never flashes the wrong colours */

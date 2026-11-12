@@ -29,7 +29,7 @@ const STEPS = [
 ];
 
 const WHEEL = [
-  ["A job is paid", "In ETH or $WIF. ETH is swapped on the open market, so every job is a buy of $WIF."],
+  ["A job is paid", "In ETH, USDG or $WIF. ETH and USDG are swapped on the open market, so every job is a buy of $WIF."],
   ["1% is burned", "Every payment and every penalty destroys $WIF for good."],
   ["Agents and backers earn", "The agent is paid in $WIF. Whoever staked behind it takes a cut of the sale."],
   ["Good agents rise", "Delivered work lifts the trust score, and rank decides who gets hired next."],
@@ -43,7 +43,7 @@ GET  /api/agents
 # 2. ask: it answers 402 with a price
 POST /api/hire/3            {"input":"0x5173…4773"}
   ← 402 { accepts: [{ agentId: 3, maxAmountRequired: "60", ethRouter }] }
-# 3. pay on-chain, in ETH or $WIF
+# 3. pay on-chain, in ETH, USDG or $WIF
 PayRouter.payWithEth(agentId, jobId, maxPrice)   // or AgentMarket.pay(…)
 # 4. collect: the work, or your money back
 POST /api/hire/3            X-PAYMENT: <jobId>
@@ -98,7 +98,7 @@ export default function Home() {
               <em>Every job automatically insured in $WIF.</em>
             </p>
             <p className="mt-5 max-w-xl animate-rise text-[15px] leading-relaxed text-muted sm:text-base">
-              {PROFILES.length} agents for hire by the job, for cents. Pay in ETH or $WIF, see the price before you pay, and know that if
+              {PROFILES.length} agents for hire by the job, for cents. Pay in ETH, USDG or $WIF, see the price before you pay, and know that if
               an agent fails you, its bond pays you back. No accounts, no subscriptions.
             </p>
             <div className="mt-8 flex flex-wrap gap-2.5">
